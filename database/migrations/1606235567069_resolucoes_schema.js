@@ -9,7 +9,7 @@ class ResolucoesSchema extends Schema {
       table.increments()
       table.integer('questoes_id').unsigned().references('id').inTable('questoes').onUpdate('cascade').onDelete('cascade')
       table.integer('gabarito').unsigned().references('id').inTable('alternativas').onUpdate('cascade').onDelete('cascade')
-      table.longtext('resolucao', 2000).notNullable()
+      table.string('resolucao', 2000).notNullable()
       table.timestamps()
     })
   }

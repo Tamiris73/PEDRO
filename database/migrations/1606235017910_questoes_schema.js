@@ -8,7 +8,7 @@ class QuestoesSchema extends Schema {
     this.create('questoes', (table) => {
       table.increments()
       table.integer('area_conhecimentos_id').unsigned().references('id').inTable('area_conhecimentos').onUpdate('cascade').onDelete('cascade')
-      table.text('questao', 1000).notNullable()
+      table.string('questao', 1000).notNullable()
       table.timestamps()
     })
   }

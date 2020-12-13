@@ -8,7 +8,7 @@ class AlternativasSchema extends Schema {
     this.create('alternativas', (table) => {
       table.increments()
       table.integer('questoes_id').unsigned().references('id').inTable('questoes').onUpdate('cascade').onDelete('cascade')
-      table.text('alternativa', 200).notNullable()
+      table.string('alternativa', 200).notNullable()
       table.timestamps()
     })
   }
