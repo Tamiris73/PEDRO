@@ -22,11 +22,11 @@ Route.get('/', () => {
  Route.post('/register', "AuthController.register")
  Route.post('/authenticate', "AuthController.authenticate")
  Route.get('/user', "UserController.index")
+ Route.get('/tentativa', "TentativaController.show")
  Route.get("/area_Conhecimento", "AreaConhecimentoController.show")
  Route.group(()=>{
   Route.resource('/questoes', "QuestoeController").apiOnly();
   Route.resource('/alternativa', "AlternativaController").apiOnly();
   Route.resource('/resolucao', "ResolucoeController").apiOnly();
   Route.resource('/resposta', "RespostaController").apiOnly();
-  Route.resource('/tentativa', "TentativaController").apiOnly();
  }).middleware(["auth"]);
