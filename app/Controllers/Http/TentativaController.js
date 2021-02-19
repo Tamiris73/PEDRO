@@ -18,8 +18,8 @@ class TentativaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-    const tentativa = await Tentativa.all();
+  async index() {
+    const tentativa = await Tentativa.query().with(["user"]).fetch();
     return tentativa;
   }
 
@@ -49,8 +49,8 @@ class TentativaController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
-    const tentativa = await Tentativa.findOrFail(params.id);
+  async show({ params, request, response, view }) {
+    const tentativa = await Tentativa.query().where("user_id", params.id).fetch();
     return tentativa;
   }
 

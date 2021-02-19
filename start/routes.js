@@ -25,7 +25,7 @@ Route.get('/', () => {
  Route.post('/user', "UserController.store")
  Route.get('/tentativa/:id', "TentativaController.show")
  Route.group(() => {
-  Route.resource("tentativa", "TentativaController").only([
+  Route.resource("/tentativa", "TentativaController").only([
     "index",
     "store",
     "update",
