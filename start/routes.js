@@ -23,7 +23,15 @@ Route.get('/', () => {
  Route.post('/authenticate', "AuthController.authenticate")
  Route.get('/user', "UserController.index")
  Route.post('/user', "UserController.store")
- Route.get('/tentativa', "TentativaController.show")
+ Route.get('/tentativa/:id', "TentativaController.show")
+ Route.group(() => {
+  Route.resource("tentativa", "TentativaController").only([
+    "index",
+    "store",
+    "update",
+    "destroy",
+  ]);
+}).middleware(["auth"]);
  Route.get("/area_Conhecimento", "AreaConhecimentoController.show")
  Route.group(()=>{
   Route.resource('/questoes', "QuestoeController").apiOnly();
