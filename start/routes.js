@@ -22,20 +22,57 @@ Route.get('/', () => {
  Route.post('/register', "AuthController.register")
  Route.post('/authenticate', "AuthController.authenticate")
  Route.get('/user', "UserController.index")
- Route.post('/user', "UserController.store")
  Route.get('/tentativa/:id', "TentativaController.show")
+ Route.get("/area_Conhecimento/:id", "AreaConhecimentoController.show")
+ Route.get('/questoes/:id', "QuestoeController")
+ Route.get('/alternativa/:id', "AlternativaController")
+ Route.get('/resolucao/:id', "ResolucoeController")
+ Route.get('/resposta/:id', "RespostaController")
+
  Route.group(() => {
   Route.resource("/tentativa", "TentativaController").only([
     "index",
     "store",
     "update",
     "destroy",
-  ]);
-}).middleware(["auth"]);
- Route.get("/area_Conhecimento", "AreaConhecimentoController.show")
- Route.group(()=>{
-  Route.resource('/questoes', "QuestoeController").apiOnly();
-  Route.resource('/alternativa', "AlternativaController").apiOnly();
-  Route.resource('/resolucao', "ResolucoeController").apiOnly();
-  Route.resource('/resposta', "RespostaController").apiOnly();
- }).middleware(["auth"]);
+  ]);}).middleware(["auth"]);
+  Route.group(() => {
+    Route.resource("/area_Conhecimento", "AreaConhecimentoController").only([
+      "index",
+      "store",
+      "update",
+      "destroy",
+    ]);}).middleware(["auth"]);
+  Route.group(() => {
+    Route.resource("/questoes", "QuestoeController").only([
+      "index",
+      "store",
+      "update",
+      "destroy",
+    ]);}).middleware(["auth"]);
+  Route.group(() => {
+    Route.resource("/alternativa", "AlternativaController").only([
+      "index",
+      "store",
+      "update",
+      "destroy",
+    ]);}).middleware(["auth"]);
+  Route.group(() => {
+    Route.resource("/resolucao", "ResolucoeController").only([
+      "index",
+      "store",
+      "update",
+      "destroy",
+    ]);}).middleware(["auth"]);
+  Route.group(() => {
+    Route.resource("/resposta", "RespostaController").only([
+      "index",
+      "store",
+      "update",
+      "destroy",
+    ]);}).middleware(["auth"]);
+
+
+
+
+
