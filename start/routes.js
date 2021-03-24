@@ -40,7 +40,7 @@ Route.get('/', () => {
     "update",
     "destroy",
   ]);
-  Route.resource("area_Conhecimento", "AreaConhecimentoController").only()([
+  Route.resource("area_Conhecimento", "AreaConhecimentoController").only([
     "show",
     "store",
     "update",
