@@ -41,9 +41,9 @@ Route.get('/', () => {
     "destroy",
   ]);
   Route.resource("area_Conhecimento", "AreaConhecimentoController").only()([
-  "show",
-  "store",
-  "update",
-  "destroy",
+    "show",
+    "store",
+    "update",
+    "destroy",
   ]);
 }).middleware(["auth"]);
