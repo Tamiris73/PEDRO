@@ -19,11 +19,8 @@ class RespostaController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-<<<<<<< HEAD
     const resposta = await Resposta.query().where("questoes_id", params.id).fetch();
-=======
     const resposta = await Resposta.query().with(["questoes"], ["alternativas"]).fetch();
->>>>>>> 54e44a3c0e2c34e66036dbe638ef243a8091aaef
     return resposta;
   }
 
@@ -60,18 +57,12 @@ class RespostaController {
     const resposta = await Resposta.query().where("questoes_id" , "alternativas_id", params.id).fetch();
     return resposta;
   }
-<<<<<<< HEAD
   async questoes({ params, request, response, view }) {
     // const aluno = await Aluno.findOrFail(params.id);
     // return aluno;
     const questao = await Questoes.query().where("questoes_id", params.id).fetch();
     return questao;
   }
-=======
-
- 
->>>>>>> 54e44a3c0e2c34e66036dbe638ef243a8091aaef
-
 
   /**
    * Update resposta details.

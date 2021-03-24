@@ -53,11 +53,7 @@ class TentativaController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
-<<<<<<< HEAD
-    const tentativa = await Tentativa.findOrFail(params.id);
-=======
     const tentativa = await Tentativa.query().where("user_id", "respostas_id", params.id).fetch();
->>>>>>> 54e44a3c0e2c34e66036dbe638ef243a8091aaef
     return tentativa;
   }
 

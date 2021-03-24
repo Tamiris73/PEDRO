@@ -18,11 +18,8 @@ class ResolucoeController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-<<<<<<< HEAD
     const resolucao = await Resolucao.uery().with(["questao"]).fetch();
-=======
     const resolucao = await Resolucao.query().with(["questoes"],["gabarito"] ).fetch();
->>>>>>> 54e44a3c0e2c34e66036dbe638ef243a8091aaef
     return resolucao;
   }
 

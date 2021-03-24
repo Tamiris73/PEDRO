@@ -49,7 +49,6 @@ class questoesController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-<<<<<<< HEAD
   async show ({ params, request, response, view }) {
     const questoes = await Questoes.findOrFail(params.id);
     return questoes;
@@ -58,10 +57,9 @@ class questoesController {
   async areaconhecimento({ params, request, response, view }) {
     // const aluno = await Aluno.findOrFail(params.id);
     // return aluno;
-=======
+  }
   
    async show ({ params, request, response, view }) {
->>>>>>> 54e44a3c0e2c34e66036dbe638ef243a8091aaef
     const questao = await Questoes.query().where("areaconhecimento_id", params.id).fetch();
     return questao;
   }
