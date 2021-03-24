@@ -22,16 +22,14 @@ Route.get('/', () => {
  Route.post('/register', "AuthController.register")
  Route.post('/authenticate', "AuthController.authenticate")
  Route.get('/user', "UserController.index")
-<<<<<<< HEAD
- Route.resource("area_Conhecimento", "AreaConhecimentoController.index")
+ Route.get("area_Conhecimento", "AreaConhecimentoController.index")
  Route.get("/tentativa/:id/user", "TentativaController.user");
-  Route.resource('questoes', "QuestoeController.areaconhecimento")
-  Route.resource('alternativa', "AlternativaController.questoes")
-  Route.resource('resolucao', "ResolucoeController.questoes")
-  Route.resource('resposta', "RespostaController.questoes")
-Route.group(() => {
+ Route.get('questoes', "QuestoeController.areaconhecimento")
+ Route.get('alternativa', "AlternativaController.questoes")
+ Route.get('resolucao', "ResolucoeController.questoes")
+ Route.get('resposta', "RespostaController.questoes")
+ Route.group(() => {
   Route.resource('tentativa', "TentativaController.index").apiOnly();
-  Route.resource("area_Conhecimento", "AreaConhecimentoController.index").apiOnly();
   Route.resource('questoes', "QuestoeController.index").apiOnly();
   Route.resource('alternativa', "AlternativaController.index").apiOnly();
   Route.resource('resolucao', "ResolucoeController.index").apiOnly();
@@ -42,24 +40,10 @@ Route.group(() => {
     "update",
     "destroy",
   ]);
-  // Route.post("/alunos", "AlunoController.store");
-  // Route.get("/alunos/:id", "AlunoController.show");
-  // Route.get("/alunos", "AlunoController.index");
-  // Route.put("/alunos/:id", "AlunoController.update");
-  // Route.delete("/alunos/:id", "AlunoController.destroy");
+  Route.resource("area_Conhecimento", "AreaConhecimentoController").only()([
+  "show",
+  "store",
+  "update",
+  "destroy",
+]);
 }).middleware(["auth"]);
-=======
- Route.get('/tentativa', "TentativaController.index")
- Route.get("/area_Conhecimento", "AreaConhecimentoController.index")
- Route.get('/questoes', "QuestoeController.index")
- Route.get('/alternativa', "AlternativaController.index")
- Route.get('/resolucao', "ResolucoeController.index")
- Route.get('/resposta', "RespostaController.index")
-
- 
-
-
-
-
-
->>>>>>> 54e44a3c0e2c34e66036dbe638ef243a8091aaef
