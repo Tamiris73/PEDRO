@@ -19,15 +19,15 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
- Route.post('/register', "AuthController.register")
- Route.post('/authenticate', "AuthController.authenticate")
- Route.get('/user', "UserController.index")
- Route.get("area_Conhecimento", "AreaConhecimentoController.index")
+ Route.post('/register', "AuthController.register");
+ Route.post('/authenticate', "AuthController.authenticate");
+ Route.get('/user', "UserController.index");
+ Route.get("area_Conhecimento", "AreaConhecimentoController.index");
  Route.get("/tentativa/:id/user", "TentativaController.user");
- Route.get('questoes/:id/areaconhecimento', "QuestoeController.areaconhecimento")
- Route.get('alternativa/:id/questoes', "AlternativaController.questoes")
- Route.get('resolucao/:id/questoes', "ResolucoeController.questoes")
- Route.get('resposta/:id/cursosquestoes', "RespostaController.questoes")
+ Route.get('questoes/:id/areaconhecimento', "QuestoeController.areaconhecimento");
+ Route.get('alternativa/:id/questoes', "AlternativaController.questoes");
+ Route.get('resolucao/:id/questoes', "ResolucoeController.questoes");
+ Route.get('resposta/:id/cursosquestoes', "RespostaController.questoes");
  Route.group(() => {
   Route.resource('tentativa', "TentativaController.index").apiOnly();
   Route.resource('questoes', "QuestoeController.index").apiOnly();
@@ -45,5 +45,5 @@ Route.get('/', () => {
   "store",
   "update",
   "destroy",
-]);
+  ]);
 }).middleware(["auth"]);
