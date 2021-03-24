@@ -22,57 +22,28 @@ Route.get('/', () => {
  Route.post('/register', "AuthController.register")
  Route.post('/authenticate', "AuthController.authenticate")
  Route.get('/user', "UserController.index")
- Route.get('/tentativa/:id', "TentativaController.show")
- Route.get("/area_Conhecimento/:id", "AreaConhecimentoController.show")
- Route.get('/questoes/:id', "QuestoeController")
- Route.get('/alternativa/:id', "AlternativaController")
- Route.get('/resolucao/:id', "ResolucoeController")
- Route.get('/resposta/:id', "RespostaController")
-
- Route.group(() => {
-  Route.resource("/tentativa", "TentativaController").only([
-    "index",
+ Route.resource("area_Conhecimento", "AreaConhecimentoController.index")
+ Route.get("/tentativa/:id/user", "TentativaController.user");
+  Route.resource('questoes', "QuestoeController.areaconhecimento")
+  Route.resource('alternativa', "AlternativaController.questoes")
+  Route.resource('resolucao', "ResolucoeController.questoes")
+  Route.resource('resposta', "RespostaController.questoes")
+Route.group(() => {
+  Route.resource('tentativa', "TentativaController.index").apiOnly();
+  Route.resource("area_Conhecimento", "AreaConhecimentoController.index").apiOnly();
+  Route.resource('questoes', "QuestoeController.index").apiOnly();
+  Route.resource('alternativa', "AlternativaController.index").apiOnly();
+  Route.resource('resolucao', "ResolucoeController.index").apiOnly();
+  Route.resource('resposta', "RespostaController.index").apiOnly();
+  Route.resource("user", "UserController").only([
+    "show",
     "store",
     "update",
     "destroy",
-  ]);}).middleware(["auth"]);
-  Route.group(() => {
-    Route.resource("/area_Conhecimento", "AreaConhecimentoController").only([
-      "index",
-      "store",
-      "update",
-      "destroy",
-    ]);}).middleware(["auth"]);
-  Route.group(() => {
-    Route.resource("/questoes", "QuestoeController").only([
-      "index",
-      "store",
-      "update",
-      "destroy",
-    ]);}).middleware(["auth"]);
-  Route.group(() => {
-    Route.resource("/alternativa", "AlternativaController").only([
-      "index",
-      "store",
-      "update",
-      "destroy",
-    ]);}).middleware(["auth"]);
-  Route.group(() => {
-    Route.resource("/resolucao", "ResolucoeController").only([
-      "index",
-      "store",
-      "update",
-      "destroy",
-    ]);}).middleware(["auth"]);
-  Route.group(() => {
-    Route.resource("/resposta", "RespostaController").only([
-      "index",
-      "store",
-      "update",
-      "destroy",
-    ]);}).middleware(["auth"]);
-
-
-
-
-
+  ]);
+  // Route.post("/alunos", "AlunoController.store");
+  // Route.get("/alunos/:id", "AlunoController.show");
+  // Route.get("/alunos", "AlunoController.index");
+  // Route.put("/alunos/:id", "AlunoController.update");
+  // Route.delete("/alunos/:id", "AlunoController.destroy");
+}).middleware(["auth"]);

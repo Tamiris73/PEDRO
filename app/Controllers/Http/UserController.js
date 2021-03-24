@@ -34,9 +34,13 @@ class UsuarioController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    const data = request.only(['username', 'email', 'password'])
-    const usuario = await Usuario.create(data);
-    return usuario;
+    try {
+      const data = request.only(["username"], ["email"], ["password"]);
+      const usuario = await Usuario.create(data);
+      return usuario;
+    } catch (error) {
+      response.status(500).send("Erro ao inserir usuário!");
+    }
   }
 
   /**
@@ -64,13 +68,17 @@ class UsuarioController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const usuario = await Usuario.findOrFail(params.id);
-    const {username, email, password} = request.only(['username', 'email', 'password'])
-    usuario.username=username;
-    usuario.email=email;
-    usuario.password=password;
-    await usuario.save();
-    return usuario;
+    try {
+      const usuario = await Usuario.findOrFail(params.id);
+      const {username, email, password} = request.only(['username', 'email', 'password'])
+      usuario.username=username;
+      usuario.email=email;
+      usuario.password=password;
+      await usuario.save();
+      return usuario;
+    } catch (error) {
+      response.status(500).send("Erro ao atualizar o usuario!");
+    }
   }
 
   /**
@@ -82,9 +90,13 @@ class UsuarioController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    const usuario = await Usuario.findOrFail(params.id);
-    await usuario.delete();
-    return usuario;
+    try {
+      const usuario = await Usuario.findOrFail(params.id);
+      await usuario.delete();
+      return usuario;
+    } catch (error) {
+      response.status(500).send("Erro ao apagar o usuario!");
+    }
   }
 }
 

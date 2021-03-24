@@ -18,7 +18,7 @@ class ResolucoeController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const resolucao = await Resolucao.all();
+    const resolucao = await Resolucao.uery().with(["questao"]).fetch();
     return resolucao;
   }
 
@@ -31,11 +31,20 @@ class ResolucoeController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
-    const data = request.only(['resolucao', 'gabarito','questoes_id'])
-    const resolucao = await Resolucao.create(data);
-    return resolucao;
+    try{
+      const data = request.only(['resolucao', 'gabarito','questoes_id'])
+      const resolucao = await Resolucao.create(data);
+      return resolucao;
+    }catch (error) {
+      response.status(500).send("Erro ao inserir resolução!");
+    }
   }
-
+  async questoes({ params, request, response, view }) {
+    // const aluno = await Aluno.findOrFail(params.id);
+    // return aluno;
+    const questao = await Questoes.query().where("questoes_id", params.id).fetch();
+    return questao;
+  }
   /**
    * Display a single resolucoe.
    * GET resolucoes/:id
@@ -59,13 +68,21 @@ class ResolucoeController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const resolucaos = await Resolucao.findOrFail(params.id);
-    const {resolucao, gabarito,questoes_id} = request.only(['resolucao', 'gabarito','questoes_id'])
-    resolucaos.resolucao=resolucao;
-    resolucaos.gabarito=gabarito;
-    resolucaos.questoes_id=questoes_id;
-    await resolucaos.save();
-    return resolucaos;
+    try {
+      const resolucaos = await Resolucao.findOrFail(params.id);
+      const {resolucao, gabarito,questoes_id} = request.only([
+        "resolucao",
+        "gabarito",
+        "questoes_id",
+      ]);
+      resolucaos.resolucao=resolucao;
+      resolucaos.gabarito=gabarito;
+      resolucaos.questoes_id=questoes_id;
+      await resolucaos.save();
+      return resolucaos;
+    } catch (error) {
+      response.status(500).send("Erro ao atualizar a resolução!");
+    }
   }
 
   /**
@@ -77,9 +94,13 @@ class ResolucoeController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    const resolucao = await Resolucao.findOrFail(params.id);
-    await resolucao.delete();
-    return resolucao;
+    try{
+      const resolucao = await Resolucao.findOrFail(params.id);
+      await resolucao.delete();
+      return resolucao;
+    }catch (error) {
+      response.status(500).send("Erro ao apagar resolução!");
+    }
   }
 }
 

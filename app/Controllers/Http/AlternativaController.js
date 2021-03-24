@@ -18,7 +18,7 @@ class AlternativaController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const alternativa = await Alternativa.all();
+    const alternativa = await Alternativa.query().with(["questoes"]).fetch();
     return alternativa;
   }
 
@@ -31,11 +31,20 @@ class AlternativaController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    try {
     const data = request.only(['alternativa', 'questoes_id'])
     const alternativa = await Alternativa.create(data);
     return alternativa;
+    } catch (error) {
+      response.status(500).send("Erro ao inserir tentativa!");
+    }
   }
-
+  async questoes({ params, request, response, view }) {
+    // const aluno = await Aluno.findOrFail(params.id);
+    // return aluno;
+    const questao = await Questoes.query().where("questoes_id", params.id).fetch();
+    return questao;
+  }
   /**
    * Display a single alternativa.
    * GET alternativas/:id
@@ -59,12 +68,19 @@ class AlternativaController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const alternativas = await Alternativa.findOrFail(params.id);
-    const {alternativa, questoes_id} = request.only(['alternativa', 'questoes_id'])
-    alternativas.alternativa=alternativa;
-    alternativas.questoes_id=questoes_id;
-    await alternativas.save();
-    return alternativas;
+    try {
+      const alternativas = await Alternativa.findOrFail(params.id);
+      const {alternativa, questoes_id} = request.only([
+        "alternativa",
+        "questoes_id",
+      ]);
+      alternativas.alternativa=alternativa;
+      alternativas.questoes_id=questoes_id;
+      await alternativas.save();
+      return alternativas;
+    } catch (error) {
+      response.status(500).send("Erro ao atualizar a tentativa!");
+    }
   }
 
   /**
@@ -76,9 +92,13 @@ class AlternativaController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    const alternativa = await Alternativa.findOrFail(params.id);
-    await alternativa.delete();
-    return alternativa;
+    try {
+      const alternativa = await Alternativa.findOrFail(params.id);
+      await alternativa.delete();
+      return alternativa;
+    } catch (error) {
+      response.status(500).send("Erro ao apagar a tentativa!");
+    }
   }
 }
 

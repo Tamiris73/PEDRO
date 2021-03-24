@@ -3,14 +3,14 @@
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
-const AreaConhecimento = use('App/Models/AreaConhecimento')
+const AreaConhecimento = use('App/Models/areaConhecimento')
 /**
- * Resourceful controller for interacting with areaconhecimentos
+ * Resourceful controller for interacting with areaConhecimentos
  */
-class AreaConhecimentoController {
+class areaConhecimentoController {
   /**
-   * Show a list of all areaconhecimentos.
-   * GET areaconhecimentos
+   * Show a list of all areaConhecimentos.
+   * GET areaConhecimentos
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -18,27 +18,31 @@ class AreaConhecimentoController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    const area_conhecimento = await AreaConhecimento.all();
-    return area_conhecimento;
+    const areaConhecimento = await AreaConhecimento.all();
+    return areaConhecimento;
   }
 
   /**
-   * Create/save a new areaconhecimento.
-   * POST areaconhecimentos
+   * Create/save a new areaConhecimento.
+   * POST areaConhecimentos
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    try {
     const data = request.only(['nome'])
-    const area_conhecimento = await AreaConhecimento.create(data);
-    return area_conhecimento;
+    const areaConhecimento = await AreaConhecimento.create(data);
+    return areaConhecimento;
+    } catch (error) {
+      response.status(500).send("Erro ao inserir área de conhecimento!");
+    }
   }
 
   /**
-   * Display a single areaconhecimento.
-   * GET areaconhecimentos/:id
+   * Display a single areaConhecimento.
+   * GET areaConhecimentos/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -46,39 +50,48 @@ class AreaConhecimentoController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    const area_conhecimento = await AreaConhecimento.findOrFail(params.id);
-    return area_conhecimento;
+    const areaConhecimento = await AreaConhecimento.findOrFail(params.id);
+    return areaConhecimento;
   }
-
   /**
-   * Update areaconhecimento details.
-   * PUT or PATCH areaconhecimentos/:id
+   * Update areaConhecimento details.
+   * PUT or PATCH areaConhecimentos/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const area_conhecimento = await AreaConhecimento.findOrFail(params.id);
-    const {nome} = request.only(['nome'])
-    area_conhecimento.nome=nome;
-    await area_conhecimento.save();
-    return area_conhecimento;
+    try {
+      const areaConhecimentos = await AreaConhecimento.findOrFail(params.id);
+      const {nome} = request.only([
+        "nome"
+      ]);
+      areaConhecimentos.nome=nome;
+      await areaConhecimentos.save();
+      return areaConhecimentos;
+    } catch (error) {
+      response.status(500).send("Erro ao atualizar a área de conhecimento!");
+    }
   }
 
   /**
-   * Delete a areaconhecimento with id.
-   * DELETE areaconhecimentos/:id
+   * Delete a areaConhecimento with id.
+   * DELETE areaConhecimentos/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    const area_conhecimento = await AreaConhecimento.findOrFail(params.id);
-    await area_conhecimento.delete();
-    return area_conhecimento;
+    try {
+      const areaConhecimento = await AreaConhecimento.findOrFail(params.id);
+      await areaConhecimento.delete();
+      return areaConhecimento;
+    } catch (error) {
+      response.status(500).send("Erro ao apagar a área de conhecimento!");
+    }
   }
 }
 
-module.exports = AreaConhecimentoController
+module.exports = areaConhecimentoController

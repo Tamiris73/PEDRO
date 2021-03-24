@@ -34,10 +34,13 @@ class TentativaController {
    * @param {Response} ctx.response
    */
   async store ({ request, response }) {
+    try{
       const data = request.only(['tentativa', 'user_id', 'respostas_id'])
       const tentativa = await Tentativa.create(data);
       return tentativa;
-
+    }catch (error) {
+      response.status(500).send("Erro ao inserir tentativa!");
+    }
   }
 
   /**
@@ -50,7 +53,7 @@ class TentativaController {
    * @param {View} ctx.view
    */
   async show({ params, request, response, view }) {
-    const tentativa = await Tentativa.query().where("user_id", params.id).fetch();
+    const tentativa = await Tentativa.findOrFail(params.id);
     return tentativa;
   }
 
@@ -64,13 +67,27 @@ class TentativaController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
-    const tentativas = await Tentativa.findOrFail(params.id);
-    const {tentativa, user_id, respostas_id} = request.only(['tentativa', 'user_id', 'respostas_id'])
-    tentativas.tentativa=tentativa;
-    tentativas.user_id=user_id;
-    tentativas.respostas_id=respostas_id;
-    await tentativas.save();
-    return tentativas;
+    try {
+      const tentativas = await Tentativa.findOrFail(params.id);
+      const {tentativa, user_id, respostas_id} = request.only([
+        "tentativa",
+        "user_id",
+        "respostas_id",
+      ]);
+      tentativas.tentativa=tentativa;
+      tentativas.user_id=user_id;
+      tentativas.respostas_id=respostas_id;
+      await tentativas.save();
+      return tentativas;
+    } catch (error) {
+      response.status(500).send("Erro ao atualizar a tentativa!");
+    }
+  }
+  async user({ params, request, response, view }) {
+    // const tentativa = await Aluno.findOrFail(params.id);
+    // return tentativa;
+    const tentativa = await Tentativa.query().where("user_id", params.id).fetch();
+    return tentativa;
   }
 
   /**
@@ -82,9 +99,13 @@ class TentativaController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
-    const tentativa = await Tentativa.findOrFail(params.id);
-    await tentativa.delete();
-    return tentativa;
+    try{
+      const tentativa = await Tentativa.findOrFail(params.id);
+      await tentativa.delete();
+      return tentativa;
+    }catch (error) {
+      response.status(500).send("Erro ao apagar a tentativa!");
+    }
   }
 }
 
