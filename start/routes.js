@@ -24,10 +24,10 @@ Route.get('/', () => {
  Route.get('/user', "UserController.index")
  Route.get("area_Conhecimento", "AreaConhecimentoController.index")
  Route.get("/tentativa/:id/user", "TentativaController.user");
- Route.get('questoes', "QuestoeController.areaconhecimento")
- Route.get('alternativa', "AlternativaController.questoes")
- Route.get('resolucao', "ResolucoeController.questoes")
- Route.get('resposta', "RespostaController.questoes")
+ Route.get('questoes/:id/areaconhecimento', "QuestoeController.areaconhecimento")
+ Route.get('alternativa/:id/questoes', "AlternativaController.questoes")
+ Route.get('resolucao/:id/questoes', "ResolucoeController.questoes")
+ Route.get('resposta/:id/cursosquestoes', "RespostaController.questoes")
  Route.group(() => {
   Route.resource('tentativa', "TentativaController.index").apiOnly();
   Route.resource('questoes', "QuestoeController.index").apiOnly();
