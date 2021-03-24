@@ -18,9 +18,11 @@ class UsuarioController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-    const usuario = await Usuario.all();
-    return usuario;
+  
+
+  async index({ request, response, view }) {
+    const user = await nome.all();
+    return user;
   }
 
   
@@ -52,11 +54,9 @@ class UsuarioController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
-    const usuario = await Usuario.findOrFail(params.id);
-    return usuario;
-  }
-
+  
+ 
+  async show({ params, request, response, view }) {} 
 
 
   /**

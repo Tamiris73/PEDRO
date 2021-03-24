@@ -18,9 +18,15 @@ class ResolucoeController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+<<<<<<< HEAD
     const resolucao = await Resolucao.uery().with(["questao"]).fetch();
+=======
+    const resolucao = await Resolucao.query().with(["questoes"],["gabarito"] ).fetch();
+>>>>>>> 54e44a3c0e2c34e66036dbe638ef243a8091aaef
     return resolucao;
   }
+
+
 
   /**
    * Create/save a new resolucoe.
@@ -55,9 +61,13 @@ class ResolucoeController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    const resolucao = await Resolucao.findOrFail(params.id);
+    const resolucao = await Resolucao.query().where("questoes_id", "gabarito_id", params.id).fetch();
     return resolucao;
   }
+
+ 
+
+  
 
   /**
    * Update resolucoe details.

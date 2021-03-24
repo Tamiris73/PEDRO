@@ -22,6 +22,7 @@ Route.get('/', () => {
  Route.post('/register', "AuthController.register")
  Route.post('/authenticate', "AuthController.authenticate")
  Route.get('/user', "UserController.index")
+<<<<<<< HEAD
  Route.resource("area_Conhecimento", "AreaConhecimentoController.index")
  Route.get("/tentativa/:id/user", "TentativaController.user");
   Route.resource('questoes', "QuestoeController.areaconhecimento")
@@ -47,3 +48,18 @@ Route.group(() => {
   // Route.put("/alunos/:id", "AlunoController.update");
   // Route.delete("/alunos/:id", "AlunoController.destroy");
 }).middleware(["auth"]);
+=======
+ Route.get('/tentativa', "TentativaController.index")
+ Route.get("/area_Conhecimento", "AreaConhecimentoController.index")
+ Route.get('/questoes', "QuestoeController.index")
+ Route.get('/alternativa', "AlternativaController.index")
+ Route.get('/resolucao', "ResolucoeController.index")
+ Route.get('/resposta', "RespostaController.index")
+
+ 
+
+
+
+
+
+>>>>>>> 54e44a3c0e2c34e66036dbe638ef243a8091aaef

@@ -22,6 +22,9 @@ class AlternativaController {
     return alternativa;
   }
 
+
+
+
   /**
    * Create/save a new alternativa.
    * POST alternativas
@@ -55,10 +58,11 @@ class AlternativaController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    const alternativa = await Alternativa.findOrFail(params.id);
+    const alternativa = await Alternativa.query().where("questoes_id", params.id).fetch();
     return alternativa;
   }
 
+  
   /**
    * Update alternativa details.
    * PUT or PATCH alternativas/:id
