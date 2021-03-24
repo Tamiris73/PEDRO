@@ -21,7 +21,7 @@ class UsuarioController {
   
 
   async index({ request, response, view }) {
-    const user = await nome.all();
+    const user = await User.all();
     return user;
   }
 
