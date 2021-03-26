@@ -19,7 +19,7 @@ class TentativaController {
    * @param {View} ctx.view
    */
   async index() {
-    const tentativa = await Tentativa.query().with(["user"], ["repostas"]).fetch();
+    const tentativa = await Tentativa.query().with(["user"]).fetch();
     return tentativa;
   }
 
