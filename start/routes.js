@@ -22,7 +22,7 @@ Route.get('/', () => {
  Route.post('/register', "AuthController.register");
  Route.post('/authenticate', "AuthController.authenticate");
  Route.get('/user', "UserController.index");
- Route.get("area_Conhecimento", "AreaConhecimentoController.index");
+ Route.get("areaconhecimento", "AreaConhecimentoController.index");
  Route.get("/tentativa/:id/user", "TentativaController.user");
  Route.get('questoes/:id/areaconhecimento', "QuestoeController.areaconhecimento");
  Route.get('alternativa/:id/questoes', "AlternativaController.questoes");
